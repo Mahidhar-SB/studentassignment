@@ -11,7 +11,7 @@ import requests
 
 app = Flask(__name__)
 app.secret_key = 'a'
-conn = ibm_db.connect("DATABASE=bludb; HOSTNAME=2f3279a5-73d1-4859-88f0-a6c3e6b4b907.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud; PORT=30756; UID=vts47207; PASSWORD=g4O8mWodzytk1wMD; SECURITY=SSL;SSLServerCertificateDigiCertGlobalRootCA.crt", "", "")
+conn = ibm_db.connect("DATABASE=<databasename>; HOSTNAME=<Enter Your Hostname>; PORT=<Enter Your Port Number>; UID=<Enter Your Username>; PASSWORD=<Enter Your Password>; SECURITY=SSL;SSLServerCertificate=DigiCertGlobalRootCA.crt", "", "")
 url = "https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send"
 @app.route("/")
 def index():
@@ -142,7 +142,7 @@ def signup():
             }
             headers = {
                 "content-type": "application/json",
-                "X-RapidAPI-Key": "714250c24fmsh829f65c05932f01p1ad65cjsn43a39e64b3bb",
+                "X-RapidAPI-Key": "<Enter Your Rapd Api - Api KEY>",
                 "X-RapidAPI-Host": "rapidprod-sendgrid-v1.p.rapidapi.com"
             }
 
@@ -190,11 +190,11 @@ def sassignment():
             f.save(filepath)
             # connecting with cloud object storage
             
-            COS_ENDPOINT = "https://s3.jp-tok.cloud-object-storage.appdomain.cloud"
-            COS_API_KEY_ID = "feQ_YXP6d0HktdnQwEH6YFh545ZpgacGGQJkguFhthrb"
-            COS_INSTANCE_CRN = "crn:v1:bluemix:public:cloud-object-storage:global:a/2396b07efb5e497894432383c651d668:2883dbef-d638-4e0a-922e-2ad686a7ad08::"
+            COS_ENDPOINT = "<Enter Your COS URL>"
+            COS_API_KEY_ID = "<Enter Your COS API KEY>"
+            COS_INSTANCE_CRN = "<Enter Your Instance CRN>"
             cos = ibm_boto3.client("s3",ibm_api_key_id=COS_API_KEY_ID,ibm_service_instance_id=COS_INSTANCE_CRN, config=Config(signature_version="oauth"),endpoint_url=COS_ENDPOINT)
-            cos.upload_file(Filename= filepath,Bucket='studentassignmentsb',Key= u+x+".pdf")
+            cos.upload_file(Filename= filepath,Bucket='<ENTER Your Bucket Name>',Key= u+x+".pdf")
             msg = "Uploding Successful"
             ts = datetime.datetime.now()
             t = ts.strftime("%Y-%m-%d %H:%M:%S")
@@ -253,15 +253,15 @@ def marksassign(stdname):
     global file
     da  = []
     
-    COS_ENDPOINT = "https://s3.jp-tok.cloud-object-storage.appdomain.cloud"
-    COS_API_KEY_ID = "feQ_YXP6d0HktdnQwEH6YFh545ZpgacGGQJkguFhthrb"
-    COS_INSTANCE_CRN = "crn:v1:bluemix:public:cloud-object-storage:global:a/2396b07efb5e497894432383c651d668:2883dbef-d638-4e0a-922e-2ad686a7ad08::"
+    COS_ENDPOINT = "<Enter your COS URL>"
+    COS_API_KEY_ID = <Enter Your COS API KEY>""
+    COS_INSTANCE_CRN = "<ENTER YOUR COS INSTANCE CRN>"
     cos = ibm_boto3.client("s3",
                         ibm_api_key_id=COS_API_KEY_ID,
                         ibm_service_instance_id=COS_INSTANCE_CRN,
                         config=Config(signature_version="oauth"),
                         endpoint_url=COS_ENDPOINT)
-    output = cos.list_objects(Bucket="studentassignmentsb")
+    output = cos.list_objects(Bucket="<ENTER YOUR BUCKET NAME>")
     output
     l=[]
     for i in range(0,len(output['Contents'])):
